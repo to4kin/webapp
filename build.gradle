@@ -31,7 +31,7 @@ jib {
 
 	to {
 		image = System.getenv('DOCKER_REGISTRY') + '/webapp'
-		tags = ['latest', version.toString()]
+		tags = ['latest', version.toString().replaceFirst('^v', '')]
 		auth {
 			username = System.getenv('DOCKERHUB_USERNAME')
 			password = System.getenv('DOCKERHUB_TOKEN')
