@@ -44,7 +44,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build
-        run: ./gradlew -Prelease.version=${${GITHUB_REF##*/}:1} final jib -x test
+        run: ./gradlew -Prelease.version=${GITHUB_REF##*/v} final jib -x test
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
