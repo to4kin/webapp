@@ -20,6 +20,35 @@ Default locations for uploads is `/app/upload`
 docker run -it --rm -p 8000:8000 -v `pwd`/upload:/app/upload --name webapp to4kin/webapp:latest
 ```
 
+### Usage with Docker-compose
+
+Example stack.yml for webapp:
+
+```yaml
+version: '3.8'
+
+services:
+
+  webapp:
+    image: to4kin/webapp:latest
+    restart: always
+    ports:
+      - 8000:8000
+    volumes:
+      - upload-volume:/app/upload
+
+  webapp-sidecar:
+    image: to4kin/webapp-sidecar:latest
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - upload-volume:/upload
+
+volumes:
+  upload-volume:
+```
+
 ### Usage
 
 ```bash
