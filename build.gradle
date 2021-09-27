@@ -1,11 +1,13 @@
 plugins {
+	id 'com.google.cloud.tools.jib' version '3.1.4'
+	id "nebula.release" version "16.0.0"
+
 	id 'org.springframework.boot' version '2.5.5'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 }
 
 group = 'com.example'
-version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 repositories {
@@ -13,10 +15,33 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 test {
 	useJUnitPlatform()
+}
+
+jib {
+	from {
+		image = 'azul/zulu-openjdk-alpine:11'
+	}
+
+	to {
+		image = System.getenv('DOCKER_REGISTRY') + '/webapp'
+		tags = ['latest', project.version]
+		auth {
+			username = System.getenv('DOCKERHUB_USERNAME')
+			password = System.getenv('DOCKERHUB_TOKEN')
+		}
+	}
+
+	container {
+		appRoot = '/app'
+		ports = ['8000']
+		workingDirectory = '/app'
+	}
+	allowInsecureRegistries = false
 }
