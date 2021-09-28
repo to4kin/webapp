@@ -12,7 +12,7 @@ Service accept file by curl command or via simple UI and store it on disk.
 
 * Java 11 (Zulu)
 
-### Usage with Docker
+### Start via Docker
 
 Default locations for uploads is `/app/upload`
 
@@ -20,7 +20,7 @@ Default locations for uploads is `/app/upload`
 docker run -it --rm -p 8000:8000 -v `pwd`/upload:/app/upload --name webapp to4kin/webapp:latest
 ```
 
-### Usage with Docker-compose
+### Start via Docker-compose
 
 Example stack.yml for webapp:
 
@@ -49,7 +49,7 @@ volumes:
   upload-volume:
 ```
 
-### Usage
+### Start via java -jar
 
 ```bash
 java -jar build/libs/webapp-<APP_VERSION>.jar
