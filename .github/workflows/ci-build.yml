@@ -18,7 +18,13 @@ jobs:
           distribution: 'zulu'
 
       - name: Test
-        run: ./gradlew test
+        run: ./gradlew test jacocoTestReport
+      
+      - uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./build/reports/jacoco/report.xml
+          fail_ci_if_error: true
 
   build:
     runs-on: ubuntu-latest
